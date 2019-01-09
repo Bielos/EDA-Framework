@@ -28,9 +28,12 @@ def transform_dummy_variables(dataframe, columns):
     df = pd.get_dummies(df, drop_first=False)
     return df
 
-def imput_nan_values(dataframe, column, strateg):
-    from sklearn.preprocessing import Imputer
-    imp = Imputer(strategy=strateg)
+def imput_nan_values(dataframe, column, strateg, fill_value=None):
+    from sklearn.impute import SimpleImputer
+    if strateg == 'constant':
+        imp = SimpleImputer(strategy=strateg, fill_value=fill_value)
+    else:
+        imp = SimpleImputer(strategy=strateg)
     df = dataframe.copy()
     df[column] = imp.fit_transform(df[column].values.reshape(-1,1))
     return df
