@@ -21,11 +21,11 @@ def delete_null_observations(dataframe, column):
     fixed_df = dataframe.drop(get_null_observations(dataframe,column).index)
     return fixed_df
     
-def transform_dummy_variables(dataframe, columns):
+def transform_dummy_variables(dataframe, columns, drop_first=False):
     df = dataframe.copy()
     for column in columns:    
         df[column] = pd.Categorical(df[column])
-    df = pd.get_dummies(df, drop_first=False)
+    df = pd.get_dummies(df, drop_first=drop_first)
     return df
 
 def imput_nan_values(dataframe, column, strateg, fill_value=None):
