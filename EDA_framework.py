@@ -58,4 +58,9 @@ def delete_outliers(dataframe, column, hinge):
         outliers = get_lower_outliers(dataframe, column)
     
     return dataframe.drop(outliers.index)
+
+def get_correlation_table(dataframe):
+    df = dataframe.copy()
+    corr = df.corr()
+    return corr.style.background_gradient().set_precision(2)
     
