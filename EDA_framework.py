@@ -21,12 +21,12 @@ def delete_null_observations(dataframe, column):
     fixed_df = dataframe.drop(get_null_observations(dataframe,column).index)
     return fixed_df
     
-def transform_dummy_variables(dataframe, columns, drop_first=False):
+def transform_dummy(dataframe, column, drop_first=False):
     df = dataframe.copy()
-    for column in columns:    
-        df[column] = pd.Categorical(df[column])
-    df = pd.get_dummies(df, drop_first=drop_first)
-    return df
+    col = df[column]
+    transformed = pd.get_dummies(col, drop_first=drop_first)
+    transformed.rename(columns=lambda x: column+'_'+x, inplace=True)
+    return transformed
 
 def imput_nan_values(dataframe, column, strateg, fill_value=None):
     from sklearn.impute import SimpleImputer
